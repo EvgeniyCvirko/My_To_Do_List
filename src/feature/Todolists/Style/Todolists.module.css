@@ -1,0 +1,18 @@
+/*todolists*/
+.todolists {
+  display: flex;
+
+}
+
+/*todolist*/
+.todolist {
+  display: flex;
+  flex-direction: column;
+  margin: 0 30px
+}
+
+
+/*tasks*/
+.task {
+  display: flex;
+}
