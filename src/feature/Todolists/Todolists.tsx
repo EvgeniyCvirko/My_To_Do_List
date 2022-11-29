@@ -11,14 +11,15 @@ export const Todolists = () =>{
   const todolists = useAppSelector(state=> state.todolists)
   useEffect(()=>{
     dispatch(getTodolists())
-  })
+  },[])
+  console.log(todolists)
   return <>
     {
-      todolists
+      todolists.map( (td,i) => {console.log(td.title);
+
+        <div key={i} className={s.todolists}>
+          <Todolist todolist={td}/>
+      </div>})
     }
   </>
-  return <div className={s.todolists}>
-    <Todolist />
-    <Todolist />
-  </div>
 }

@@ -1,9 +1,14 @@
 import {Tasks} from './Tasks/Tasks';
 import s from '../Style/Todolists.module.css'
+import {TodolistType} from '../../../types/CommonTypes';
 
-export const Todolist = () =>{
+type TodolistPropsType = {
+  todolist: TodolistType
+}
+
+export const Todolist = (props:TodolistPropsType ) =>{
   return <div className={s.todolist}>
-    <p>Title</p>
+    <p>{props.todolist.title}</p>
     <Tasks />
     <div>
       <button>All</button>

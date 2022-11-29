@@ -3,7 +3,7 @@ import {TodolistType} from '../types/CommonTypes';
 
 export const TodolistApi = {
   getTodolists () {
-    return instance.get<TodolistType>('todo-lists')
+    return instance.get<TodolistType[]>('todo-lists')
   }
 
 }

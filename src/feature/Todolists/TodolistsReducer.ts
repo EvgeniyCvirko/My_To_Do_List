@@ -3,11 +3,16 @@ import {TodolistType} from '../../types/CommonTypes';
 import {TodolistApi} from '../../api/TodolistApi';
 
 //thunk
-export const getTodolists = createAsyncThunk(
-  'todolists/fetchByIdStatus',
-  async (userId, thunkAPI) => {
-    const response = await TodolistApi.getTodolists()
-    return response.data
+export const getTodolists = createAsyncThunk< {todolists: []},  }>(
+  'todolists/get',async (param, thunkAPI) => {
+    try {
+      const response = await TodolistApi.getTodolists()
+      console.log(response.data)
+      return {todolists: response.data}
+    } catch {
+
+    }
+
   }
 )
 
@@ -21,18 +26,9 @@ export const slice = createSlice({
     },
   extraReducers: (builder) => {
     builder.addCase(getTodolists.fulfilled, (state, action) => {
-      state.push(action.payload)
+        return
     })
   },
 })
 export const todolistsReducer = slice.reducer
-/*const todolistsReducer = createReducer([], (builder) => {
-  builder
-    .addCase('REMOVE_TODO', (state, action) => {
-      // Can still return an immutably-updated value if we want to
-      return state.filter((todo, i) => i !== action.payload.index)
-    })
-})*/
-
-
 //actions
