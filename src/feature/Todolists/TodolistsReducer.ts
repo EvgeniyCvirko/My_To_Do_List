@@ -1,32 +1,31 @@
-import {createAsyncThunk, createReducer, createSlice} from '@reduxjs/toolkit';
-import {TodolistType} from '../../types/CommonTypes';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {TodolistServerType, TodolistType} from '../../types/CommonTypes';
 import {TodolistApi} from '../../api/TodolistApi';
 
+
+type FieldErrorType = { field: string; error: string }
+export type ThunkError = { rejectValue: { errors: Array<string>, fieldsErrors?: Array<FieldErrorType> } }
 //thunk
-export const getTodolists = createAsyncThunk< {todolists: []},  }>(
-  'todolists/get',async (param, thunkAPI) => {
+export const getTodolists = createAsyncThunk(
+  'todolists/get', async () => {
     try {
-      const response = await TodolistApi.getTodolists()
-      console.log(response.data)
-      return {todolists: response.data}
-    } catch {
-
-    }
-
+      const res = await TodolistApi.getTodolists()
+      return {todolists: res.data} 
+    } catch {}
   }
 )
 
 //state
 export const slice = createSlice({
   name: 'todolists',
-  initialState: [] as TodolistType[],
+  initialState: [] as TodolistServerType [],
   reducers: {
     usersReceived(state, action) {
       }
     },
   extraReducers: (builder) => {
     builder.addCase(getTodolists.fulfilled, (state, action) => {
-        return
+        return action.payload?.todolists.map( el => ({...el, filter: 'all'}))
     })
   },
 })
