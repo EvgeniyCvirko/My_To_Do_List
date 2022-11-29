@@ -5,6 +5,13 @@ export type TodolistType = {
   title: string,
 }
 
+export type FilterType = 'all' | 'compleated' | 'active'
+
+export type TodolistServerType = TodolistType & {
+  filter: FilterType,
+}
+
+
 export type TaskType = {
   description: string,
   title: string,
