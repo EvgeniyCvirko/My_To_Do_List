@@ -20,9 +20,7 @@ export const slice = createSlice({
   name: 'todolists',
   initialState: [] as TodolistServerType [],
   reducers: {
-    usersReceived(state, action) {
-      }
-    },
+   },
   extraReducers: (builder) => {
     builder.addCase(getTodolists.fulfilled, (state, action) => {
         return action.payload?.todolists.map( el => ({...el, filter: 'all'}))
