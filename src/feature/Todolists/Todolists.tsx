@@ -12,12 +12,12 @@ export const Todolists = () =>{
   useEffect(()=>{
     dispatch(getTodolists())
   },[])
-  return <>
+  return <div className={s.todolists}>
     {
       todolists.map( (td,i) => {
-        return <div key={i} className={s.todolists}>
+        return <div key={i} >
           <Todolist todolist={td}/>
       </div>})
     }
-  </>
+  </div>
 }

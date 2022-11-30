@@ -1,18 +1,19 @@
-/*todolists*/
+/* todolists */
 .todolists {
   display: flex;
-
 }
 
-/*todolist*/
+/* todolist */
 .todolist {
   display: flex;
   flex-direction: column;
-  margin: 0 30px
+  align-items: center;
+  margin: 0 30px;
+  width: 300px;
 }
 
 
-/*tasks*/
+/* taskS */
 .task {
   display: flex;
 }
