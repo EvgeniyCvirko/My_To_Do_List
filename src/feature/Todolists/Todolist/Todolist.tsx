@@ -9,7 +9,7 @@ type TodolistPropsType = {
 export const Todolist = (props:TodolistPropsType ) =>{
   return <div className={s.todolist}>
     <p>{props.todolist.title}</p>
-    <Tasks />
+    <Tasks  todolistId={props.todolist.id}/>
     <div>
       <button>All</button>
       <button>Active</button>

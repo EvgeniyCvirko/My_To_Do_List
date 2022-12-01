@@ -4,7 +4,7 @@ import {TodolistApi} from '../../api/TodolistApi';
 
 
 type FieldErrorType = { field: string; error: string }
-export type ThunkError = { rejectValue: { errors: Array<string>, fieldsErrors?: Array<FieldErrorType> } }
+type ThunkError = { rejectValue: { errors: Array<string>, fieldsErrors?: Array<FieldErrorType> } }
 //thunk
 export const getTodolists = createAsyncThunk(
   'todolists/get', async () => {
@@ -23,7 +23,9 @@ export const slice = createSlice({
    },
   extraReducers: (builder) => {
     builder.addCase(getTodolists.fulfilled, (state, action) => {
-        return action.payload?.todolists.map( el => ({...el, filter: 'all'}))
+      if (action.payload) {
+        return action.payload.todolists.map(el => ({...el, filter: 'all'}))
+      }
     })
   },
 })
