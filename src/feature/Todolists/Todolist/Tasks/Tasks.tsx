@@ -1,7 +1,7 @@
 import {Task} from './Task/Task';
 import {useAppDispatch, useAppSelector} from '../../../../utils/hooks';
 import {useEffect} from 'react';
-import {getTasks} from './TasksReducer';
+import {changeTitleTask, getTasks} from './TasksReducer';
 
 type TasksPropsType = {
   todolistId: string
@@ -12,9 +12,13 @@ export const Tasks = (props: TasksPropsType) =>{
   useEffect(() => {
     dispatch(getTasks(props.todolistId))
   }, [])
+  const changeTitle = (id: string, title:string) =>{
+    dispatch(changeTitleTask({ todolistId: props.todolistId, taskId: id, newTask:{title} }))
+  }
+
   const task = tasks.length ?
     tasks.map((t,i) =>
-    <Task key={i} task={t}/>)
+    <Task key={i} task={t} callback={changeTitle}/>)
     :<span>{'Нет в списке задач'}</span>
   return <div >
     {

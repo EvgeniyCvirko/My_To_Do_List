@@ -35,3 +35,12 @@ export type NewTaskType ={
   startDate: Date
   deadline: Date
 }
+export type ApiTaskType ={
+  title?: string | undefined,
+  description?: string | undefined,
+  completed?: boolean | undefined,
+  status?: number | undefined,
+  priority?: number | undefined,
+  startDate?: Date | undefined,
+  deadline?: Date | undefined,
+}

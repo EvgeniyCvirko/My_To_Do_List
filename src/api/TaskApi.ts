@@ -6,7 +6,7 @@ export const TaskApi = {
     return instance.get<GetTasksType>(`todo-lists/${todolistId}/tasks`)
   },
   updateTask (todolistId: string, taskId: string, newTask:NewTaskType) {
-    return instance.put<ResponseType<TaskType>>(`/todo-lists/${todolistId}/tasks/${taskId}`, {newTask})
+    return instance.put<ResponseType<TaskType>>(`/todo-lists/${todolistId}/tasks/${taskId}`, {...newTask})
   },
 
 }
@@ -18,7 +18,7 @@ type GetTasksType = {
   error: string
 }
  type ResponseType<T={}> = {
-   data: T,
+   items: T,
    resultCode: number,
    messages: string[]
  }

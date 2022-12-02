@@ -4,10 +4,11 @@ import {EditableSpan} from '../../../../../components/EditableSpan';
 
 type TaskPropsType = {
   task: TaskType
+  callback: (id: string, title: string) => void
 }
 export const Task = (props: TaskPropsType) =>{
 const changeTitle = (newTitle: string) => {
-  alert(newTitle)
+  props.callback(props.task.id, newTitle)
 }
   return <div className={s.task}>
     <input type="checkbox"/>
