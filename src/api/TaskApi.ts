@@ -4,7 +4,10 @@ import {TaskType} from '../types/CommonTypes';
 export const TaskApi = {
   getTasks (todolistId: string ) {
     return instance.get<GetTasksType>(`todo-lists/${todolistId}/tasks`)
-  }
+  },
+  updateTask (todolistId: string, taskId: string, newTask:NewTaskType) {
+    return instance.put<ResponseType<TaskType>>(`/todo-lists/${todolistId}/tasks/${taskId}`, {newTask})
+  },
 
 }
 

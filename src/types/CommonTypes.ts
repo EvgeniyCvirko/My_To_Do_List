@@ -25,3 +25,13 @@ export type TaskType = {
   order: number,
   addedDate: Date,
 }
+
+export type NewTaskType ={
+  title: string
+  description: string
+  completed: boolean
+  status: number
+  priority: number
+  startDate: Date
+  deadline: Date
+}

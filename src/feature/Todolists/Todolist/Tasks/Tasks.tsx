@@ -13,8 +13,8 @@ export const Tasks = (props: TasksPropsType) =>{
     dispatch(getTasks(props.todolistId))
   }, [])
   const task = tasks.length ?
-    tasks.map(t =>
-    <Task task={t}/>)
+    tasks.map((t,i) =>
+    <Task key={i} task={t}/>)
     :<span>{'Нет в списке задач'}</span>
   return <div >
     {
