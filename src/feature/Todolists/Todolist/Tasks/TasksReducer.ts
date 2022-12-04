@@ -1,9 +1,10 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import { TaskApi } from '../../../../api/TaskApi';
-import {ApiTaskType, NewTaskType, TaskType} from '../../../../types/CommonTypes';
+import {TaskType} from '../../../../types/CommonTypes';
 import { getTodolists } from '../../TodolistsReducer';
 import axios from 'axios';
 import {AppRootStateType} from '../../../../app/store';
+import { ApiTaskType, NewTaskType } from '../../../../api/Types';
 
 
 type FieldErrorType = { field: string; error: string }
@@ -45,7 +46,6 @@ export const changeTitleTask = createAsyncThunk(
     }
     try {
       const res = await TaskApi.updateTask(todolistId, taskId, apiTask)
-      debugger
       return {todolistId, task: res.data.items }
     } catch (error) {
       if (axios.isAxiosError(error)) {
