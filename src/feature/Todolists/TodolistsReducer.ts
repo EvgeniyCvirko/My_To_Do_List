@@ -26,6 +26,16 @@ export const changeTodolistTitle = createAsyncThunk(
   }
 )
 
+export const removeTodolist = createAsyncThunk(
+  'todolists/remove', async (todolistId: string, thunkApi) => {
+    try {
+      const res = await TodolistApi.deleteTodolist(todolistId)
+      if(res.data.resultCode === 0){
+      return { todolistId } 
+    }
+    } catch {}
+  }
+)
 //state
 export const slice = createSlice({
   name: 'todolists',
@@ -44,6 +54,12 @@ export const slice = createSlice({
       state[index].title = action.payload.title
        // return state.map(td => td.id === action.payload?.todolistId ? {...td,title: action.payload?.title} : td )
             }
+    });
+    builder.addCase(removeTodolist.fulfilled, (state, action) => {
+      if (action.payload) {
+        const index = state.findIndex(el => el.id === action.payload?.todolistId)
+        state.splice(index, 1)
+      }
     });
   },
 })

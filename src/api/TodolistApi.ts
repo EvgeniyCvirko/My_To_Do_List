@@ -8,6 +8,9 @@ export const TodolistApi = {
   },
   updateTodolists (todolistId: string, title: string) {
     return instance.put<ResponseType>(`todo-lists/${todolistId}`, {title})
+  },
+  deleteTodolist(todolistId: string) {
+    return instance.delete<ResponseType>(`todo-lists/${todolistId}`)
   }
 
 }

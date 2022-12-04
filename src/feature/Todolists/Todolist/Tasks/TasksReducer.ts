@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import { TaskApi } from '../../../../api/TaskApi';
 import {TaskType} from '../../../../types/CommonTypes';
-import { getTodolists } from '../../TodolistsReducer';
+import { getTodolists, removeTodolist } from '../../TodolistsReducer';
 import axios from 'axios';
 import {AppRootStateType} from '../../../../app/store';
 import { ApiTaskType, NewTaskType } from '../../../../api/Types';
@@ -77,8 +77,15 @@ export const slice = createSlice({
     });
     builder.addCase(changeTitleTask.fulfilled, (state, action) => {
       if (action.payload) {
-        const newTask = action.payload.task
-        state[action.payload.todolistId].map(el => el.id === action.payload?.task.id ? el=newTask : el )
+        const index = state[action.payload.todolistId].findIndex(el => el.id === action.payload?.task.id)
+        state[action.payload.todolistId].splice(index,1, action.payload.task)
+        //const newTask = action.payload.task
+        //state[action.payload.todolistId].map(el => el.id === action.payload?.task.id ? el=newTask : el )
+      }
+    });
+    builder.addCase(removeTodolist.fulfilled, (state, action) => {
+      if (action.payload) {
+        delete state[action.payload.todolistId]
       }
     });
   },
