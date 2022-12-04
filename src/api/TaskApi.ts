@@ -1,5 +1,6 @@
 import {instance} from './Api';
-import {NewTaskType, TaskType} from '../types/CommonTypes';
+import {TaskType} from '../types/CommonTypes';
+import { GetTasksType, NewTaskType, ResponseType } from './Types';
 
 export const TaskApi = {
   getTasks (todolistId: string ) {
@@ -11,14 +12,3 @@ export const TaskApi = {
 
 }
 
-//types
-type GetTasksType = {
-  items: TaskType[],
-  totalCount: number
-  error: string
-}
- type ResponseType<T={}> = {
-   items: T,
-   resultCode: number,
-   messages: string[]
- }
