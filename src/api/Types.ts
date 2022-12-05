@@ -1,4 +1,4 @@
-import { TaskType } from "../types/CommonTypes"
+import {TaskType, TodolistType} from '../types/CommonTypes'
 
 export type GetTasksType = {
   items: TaskType[],
@@ -11,7 +11,9 @@ export type GetTasksType = {
    resultCode: number,
    messages: string[]
  }
-
+export type CreateTodolistDataType = {
+  item: TodolistType
+}
 export type NewTaskType ={
   title: string
   description: string

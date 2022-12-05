@@ -1,6 +1,6 @@
 import {instance} from './Api';
 import {TodolistType} from '../types/CommonTypes';
-import { ResponseType } from './Types';
+import {CreateTodolistDataType, ResponseType} from './Types';
 
 export const TodolistApi = {
   getTodolists () {
@@ -11,6 +11,9 @@ export const TodolistApi = {
   },
   deleteTodolist(todolistId: string) {
     return instance.delete<ResponseType>(`todo-lists/${todolistId}`)
+  },
+  createTodolist(title: string) {
+    return instance.post<ResponseType<CreateTodolistDataType>>(`todo-lists`, {title})
   }
 
 }

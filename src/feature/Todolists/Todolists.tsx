@@ -1,23 +1,34 @@
 import {Todolist} from './Todolist/Todolist';
 import s from './Style/Todolists.module.css'
-import {useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../utils/hooks';
-import {getTodolists} from './TodolistsReducer';
+import {createTodolist, getTodolists} from './TodolistsReducer';
+import {AddItemForm} from '../../components/AddItemForm';
 
 
-
-export const Todolists = () =>{
+export const Todolists = () => {
   const dispatch = useAppDispatch()
-  const todolists = useAppSelector(state=> state.todolists)
-  useEffect(()=>{
+  const todolists = useAppSelector(state => state.todolists)
+  useEffect(() => {
     dispatch(getTodolists())
-  },[])
-  return <div className={s.todolists}>
-    {
-      todolists.map( (td,i) => {
-        return <div key={i} >
+  }, [])
+ const addTodolist = useCallback((title: string) => {
+    dispatch(createTodolist(title))
+ }, [])
+
+  const todolistRender = todolists.map((td) => {
+      return <div key={td.id} className={s.todolists}>
+        <div >
           <Todolist todolist={td}/>
-      </div>})
+        </div>
+      </div>
     }
+  )
+
+  return ( <div>
+      <AddItemForm addItem={addTodolist} />
+    { todolistRender }
   </div>
+
+  )
 }

@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {TodolistServerType, TodolistType} from '../../types/CommonTypes';
 import {TodolistApi} from '../../api/TodolistApi';
+import axios from "axios";
 
 
 type FieldErrorType = { field: string; error: string }
@@ -18,11 +19,11 @@ export const getTodolists = createAsyncThunk(
 export const changeTodolistTitle = createAsyncThunk(
   'todolists/update', async (param:{todolistId: string, title: string}, thunkApi) => {
     try {
-      const res = await TodolistApi.updateTodolists(param.todolistId,param.title)
-      if(res.data.resultCode === 0){
-      return {todolistId: param.todolistId, title: param.title} 
-    }
-    } catch {}
+      const res = await TodolistApi.updateTodolists(param.todolistId, param.title)
+      if (res.data.resultCode === 0) {
+        return {todolistId: param.todolistId, title: param.title}
+      }
+    } catch (error) {}
   }
 )
 
@@ -33,6 +34,17 @@ export const removeTodolist = createAsyncThunk(
       if(res.data.resultCode === 0){
       return { todolistId } 
     }
+    } catch {}
+  }
+)
+
+export const createTodolist = createAsyncThunk(
+  'todolists/create', async (title: string, thunkApi) => {
+    try {
+      const res = await TodolistApi.createTodolist(title)
+      if(res.data.resultCode === 0){
+        return { todolist: res.data.items.item }
+      }
     } catch {}
   }
 )
@@ -59,6 +71,11 @@ export const slice = createSlice({
       if (action.payload) {
         const index = state.findIndex(el => el.id === action.payload?.todolistId)
         state.splice(index, 1)
+      }
+    });
+    builder.addCase(createTodolist.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.unshift({...action.payload.todolist, filter: 'all'})
       }
     });
   },
