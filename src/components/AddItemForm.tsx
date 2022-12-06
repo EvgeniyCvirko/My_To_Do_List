@@ -5,7 +5,6 @@ type AddItemFormType = {
 }
 export const AddItemForm = (props:AddItemFormType ) => {
   const [value, setValue] = useState<string>('')
-  console.log(value)
   const addFormHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value)
   }

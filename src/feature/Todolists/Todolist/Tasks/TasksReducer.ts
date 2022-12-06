@@ -55,6 +55,20 @@ export const changeTitleTask = createAsyncThunk(
   }
 )
 
+export const addTasks = createAsyncThunk(
+  'tasks/create', async (param:{todolistId: string, title: string}, thunkApi) => {
+    try {
+      const res = await TaskApi.createTasks(param.todolistId, param.title)
+      const data = res.data.data
+      return {todolistId: data.item.todoListId, task: data.item }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return
+      }
+    }
+  }
+)
+
 type initialStateType = {
   [key: string] : TaskType[]
 }
@@ -88,6 +102,17 @@ export const slice = createSlice({
         delete state[action.payload.todolistId]
       }
     });
+    builder.addCase(createTodolist.fulfilled, (state, action) => {
+      if (action.payload) {
+        state[action.payload.todolist.id] = []
+      }
+    });
+    builder.addCase(addTasks.fulfilled, (state, action) => {
+      if (action.payload) {
+          state[action.payload.todolistId] = [...state[action.payload.todolistId] ,action.payload.task]
+      }
+    });
+
   },
 })
 export const tasksReducer = slice.reducer

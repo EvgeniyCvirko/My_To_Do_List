@@ -1,11 +1,9 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {TodolistServerType, TodolistType} from '../../types/CommonTypes';
+import {TodolistServerType} from '../../types/CommonTypes';
 import {TodolistApi} from '../../api/TodolistApi';
-import axios from "axios";
 
 
-type FieldErrorType = { field: string; error: string }
-type ThunkError = { rejectValue: { errors: Array<string>, fieldsErrors?: Array<FieldErrorType> } }
+
 //thunk
 export const getTodolists = createAsyncThunk(
   'todolists/get', async () => {
@@ -43,7 +41,7 @@ export const createTodolist = createAsyncThunk(
     try {
       const res = await TodolistApi.createTodolist(title)
       if(res.data.resultCode === 0){
-        return { todolist: res.data.items.item }
+        return { todolist: res.data.data.item }
       }
     } catch {}
   }

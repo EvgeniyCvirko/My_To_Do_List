@@ -7,12 +7,16 @@ export type GetTasksType = {
 }
 
  export type ResponseType<T={}> = {
-   items: T,
+   data: T,
    resultCode: number,
    messages: string[]
  }
 export type CreateTodolistDataType = {
   item: TodolistType
+}
+
+export type CreateTaskDataType = {
+  item: TaskType
 }
 export type NewTaskType ={
   title: string
