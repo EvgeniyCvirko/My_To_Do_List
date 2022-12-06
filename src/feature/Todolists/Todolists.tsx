@@ -17,17 +17,18 @@ export const Todolists = () => {
  }, [])
 
   const todolistRender = todolists.map((td) => {
-      return <div key={td.id} className={s.todolists}>
+      return <div key={td.id} >
         <div >
           <Todolist todolist={td}/>
         </div>
       </div>
     }
   )
-
-  return ( <div>
-      <AddItemForm addItem={addTodolist} />
-    { todolistRender }
+  return ( <div className={s.todolists}>
+      <div className={s.addForm}><AddItemForm addItem={addTodolist}/></div>
+      <div className={s.todolistRender}>
+        {todolistRender}
+      </div>
   </div>
 
   )

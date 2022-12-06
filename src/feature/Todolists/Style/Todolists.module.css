@@ -1,6 +1,17 @@
 /* todolists */
 .todolists {
+display: flex;
+  flex-direction: column;
+  padding: 40px;
+}
+.addForm {
+  margin: 45px 0 90px 0 ;
+}
+.todolistRender {
   display: flex;
+  width: 90%;
+  margin: 0 auto;
+  overflow: scroll;
 }
 
 /* todolist */
