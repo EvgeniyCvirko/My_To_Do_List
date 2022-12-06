@@ -1,14 +1,10 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import { TaskApi } from '../../../../api/TaskApi';
 import {TaskType} from '../../../../types/CommonTypes';
-import { getTodolists, removeTodolist } from '../../TodolistsReducer';
+import {createTodolist, getTodolists, removeTodolist} from '../../TodolistsReducer';
 import axios from 'axios';
 import {AppRootStateType} from '../../../../app/store';
 import { ApiTaskType, NewTaskType } from '../../../../api/Types';
-
-
-type FieldErrorType = { field: string; error: string }
-type ThunkError = { rejectValue: { errors: Array<string>, fieldsErrors?: Array<FieldErrorType> } }
 
 //thunk
 export const getTasks = createAsyncThunk(
@@ -46,7 +42,7 @@ export const changeTitleTask = createAsyncThunk(
     }
     try {
       const res = await TaskApi.updateTask(todolistId, taskId, apiTask)
-      return {todolistId, task: res.data.items }
+      return {todolistId, task: res.data.data }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         return
@@ -61,6 +57,19 @@ export const addTasks = createAsyncThunk(
       const res = await TaskApi.createTasks(param.todolistId, param.title)
       const data = res.data.data
       return {todolistId: data.item.todoListId, task: data.item }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return
+      }
+    }
+  }
+)
+export const deleteTask = createAsyncThunk(
+  'tasks/delete', async (param:{todolistId: string, taskId: string}, thunkApi) => {
+    const {todolistId, taskId} = param
+    try {
+      const res = await TaskApi.deleteTask(todolistId, taskId)
+      return {todolistId, taskId }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         return
@@ -110,6 +119,12 @@ export const slice = createSlice({
     builder.addCase(addTasks.fulfilled, (state, action) => {
       if (action.payload) {
           state[action.payload.todolistId] = [...state[action.payload.todolistId] ,action.payload.task]
+      }
+    });
+    builder.addCase(deleteTask.fulfilled, (state, action) => {
+      if (action.payload) {
+        const index = state[action.payload.todolistId].findIndex(el => el.id === action.payload?.taskId)
+        state[action.payload.todolistId].splice(index,1)
       }
     });
 

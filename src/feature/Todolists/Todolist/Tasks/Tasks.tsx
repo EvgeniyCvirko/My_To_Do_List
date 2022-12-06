@@ -7,7 +7,7 @@ import {AddItemForm} from '../../../../components/AddItemForm';
 type TasksPropsType = {
   todolistId: string
 }
-export const Tasks = (props: TasksPropsType) =>{
+export const Tasks = (props: TasksPropsType) => {
   const tasks = useAppSelector(state => state.tasks[props.todolistId])
   const dispatch = useAppDispatch()
 
