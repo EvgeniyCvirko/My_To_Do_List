@@ -21,10 +21,12 @@ display: flex;
   align-items: center;
   margin: 0 30px;
   width: 300px;
+  color: #212121;
 }
 
 
 /* taskS */
 .task {
   display: flex;
+  color: #212121;
 }

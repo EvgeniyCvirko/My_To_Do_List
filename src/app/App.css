@@ -1,11 +1,32 @@
 .App {
   width: 100%;
-  background-color: #282c34;
+  background-color: #00897b;
   min-height: 100vh;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
 .App-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #e4fdf9;
+  color: #212121;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+  padding: 50px 0 51px 0;
+}
 
+.Todolist {
+  font-size: 50px;
+  font-weight: 700;
+  padding: 0 0 0 120px;
+  color: #212121;
+}
+
+.Logout {
+  display: flex;
+  align-items: center;
+  padding: 0 120px 0 0;
+}
+.Logout:hover {
+  cursor: pointer
 }
