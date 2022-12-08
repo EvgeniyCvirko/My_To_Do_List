@@ -1,6 +1,8 @@
 import React from 'react';
 import { Todolists } from '../feature/Todolists/Todolists';
 import './App.css';
+import {Route, Routes} from 'react-router-dom';
+import {Login} from '../components/Login';
 
 export const App = () => {
 
@@ -12,7 +14,10 @@ export const App = () => {
         <div className='Todolist'>TodoList</div>
         <div className='Logout' onClick={logoutHandler}>Logout</div>
       </header>
-      <Todolists />
+      <Routes>
+        <Route path="/*" element={<Todolists />}/>
+        <Route path="/login" element={<Login/>} />
+      </Routes>
     </div>
   );
 }
