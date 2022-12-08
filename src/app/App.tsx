@@ -2,7 +2,7 @@ import React from 'react';
 import { Todolists } from '../feature/Todolists/Todolists';
 import './App.css';
 import {Route, Routes} from 'react-router-dom';
-import {Login} from '../components/Login';
+import {Login} from '../components/Login/Login';
 
 export const App = () => {
 
