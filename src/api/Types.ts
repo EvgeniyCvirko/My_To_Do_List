@@ -37,3 +37,9 @@ export type ApiTaskType ={
   startDate?: Date | undefined,
   deadline?: Date | undefined,
 }
+
+export type AuthType = {
+    id: number,
+    email: string,
+    login: string,
+}

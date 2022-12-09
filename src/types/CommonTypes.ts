@@ -24,3 +24,10 @@ export type TaskType = {
   order: number,
   addedDate: Date,
 }
+
+export type LoginDataType = {
+  rememberMe: boolean,
+  email: string,
+  login: string,
+  captcha: boolean | null
+}
