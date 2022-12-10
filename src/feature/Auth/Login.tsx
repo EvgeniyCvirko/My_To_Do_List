@@ -4,9 +4,9 @@ import {ReduxLoginForm} from '../../components/Login/LoginForm';
 import {LoginDataType} from '../../types/CommonTypes';
 
 export const Login = () => {
-const onSubmit = (loginData: LoginDataType) => {
-  console.log(loginData)
-}
+  const onSubmit = (loginData: LoginDataType) => {
+    console.log(loginData)
+  }
 
   return (<div className={s.loginPage}>
     <div className={s.loginContent}>
