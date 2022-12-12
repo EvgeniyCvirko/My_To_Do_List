@@ -2,17 +2,18 @@ import React from 'react';
 import s from '../../feature/Auth/Login.module.css'
 import {LoginDataType} from '../../types/CommonTypes';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {required} from '../../utils/validate/validate';
+import {Input} from '../Common/FormControl';
 
 type LoginFormType = {
   captcha: boolean | null
 }
 export const LoginForm: React.FC<InjectedFormProps<LoginDataType, LoginFormType> & LoginFormType> = (props) => {
-  const {handleSubmit} = props
-
-  return <form onSubmit={handleSubmit}>
+  return <form onSubmit={props.handleSubmit}>
     <div className={s.email}>
       <label>Email:</label>
-      <Field name="email" component="input" type="email" placeholder="email"/>
+      <Field name="email" component={Input} validate={[required]} type="email" placeholder="email" />
+
     </div>
     <div className={s.password}>
       <label>Password:</label>
@@ -22,7 +23,12 @@ export const LoginForm: React.FC<InjectedFormProps<LoginDataType, LoginFormType>
       <Field name="rememberMe" component="input" type="checkbox"/>
       <span>Remember me</span>
     </div>
+    {
+      props.captcha &&
+        <Field name="captcha" component="input" type="checkbox"/>
+    }
     <button type="submit" className={s.button}>Sing In</button>
+    {props.error && <div>{props.error}</div>}
   </form>
 }
 
