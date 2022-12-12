@@ -5,7 +5,7 @@ import {AuthApi} from '../api/AuthApi';
 
 //thunk
 export const setIsInitialized = createAsyncThunk(
-  'app/me', async () => {
+  'app/me', async (param,thunkApi) => {
     try {
       const res = await AuthApi.authMe()
       if (res.data.resultCode === 0) {

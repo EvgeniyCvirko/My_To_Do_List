@@ -3,15 +3,21 @@ import {Todolists} from '../feature/Todolists/Todolists';
 import './App.css';
 import {Route, Routes} from 'react-router-dom';
 import {Login} from '../feature/Auth/Login';
-import {useAppDispatch} from '../utils/hooks';
+import {useAppDispatch, useAppSelector} from '../utils/hooks';
 import {setIsInitialized} from './AppReducer';
 import {setLogout} from '../feature/Auth/LoginReducer';
 
 export const App = () => {
+  const isInitialized = useAppSelector(state => state.app.isInitialized)
+  const isLogin = useAppSelector(state => state.login.isLogin)
   const dispatch = useAppDispatch()
-  useEffect(() => {
-dispatch(setIsInitialized())
-  }, [])
+  useEffect(() =>{
+      dispatch(setIsInitialized())
+  }, [isLogin])
+
+  if ( !isInitialized) {
+  }
+
   const logoutHandler = () => {
 dispatch(setLogout())
   }
