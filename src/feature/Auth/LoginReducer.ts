@@ -17,6 +17,19 @@ export const setLogin = createAsyncThunk(
   }
 )
 
+export const setLogout = createAsyncThunk(
+  'login/setLogout', async () => {
+
+    try {
+      const res = await LoginApi.deletLogin()
+      if (res.data.resultCode === 0) {
+        return {isLogin: false}
+      }
+
+    } catch {}
+  }
+)
+
 //state
 export const slice = createSlice({
   name: 'login',
@@ -27,6 +40,11 @@ export const slice = createSlice({
    },
   extraReducers: (builder) => {
     builder.addCase(setLogin.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.isLogin = action.payload.isLogin
+      }
+    });
+    builder.addCase(setLogout.fulfilled, (state, action) => {
       if (action.payload) {
         state.isLogin = action.payload.isLogin
       }

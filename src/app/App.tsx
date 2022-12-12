@@ -5,6 +5,7 @@ import {Route, Routes} from 'react-router-dom';
 import {Login} from '../feature/Auth/Login';
 import {useAppDispatch} from '../utils/hooks';
 import {setIsInitialized} from './AppReducer';
+import {setLogout} from '../feature/Auth/LoginReducer';
 
 export const App = () => {
   const dispatch = useAppDispatch()
@@ -12,6 +13,7 @@ export const App = () => {
 dispatch(setIsInitialized())
   }, [])
   const logoutHandler = () => {
+dispatch(setLogout())
   }
   return (
     <div className="App">
