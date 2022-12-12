@@ -6,9 +6,10 @@ import {LoginDataType} from '../../types/CommonTypes';
 
 //thunk
 export const setLogin = createAsyncThunk(
-  'login/set', async (LoginData:LoginDataType) => {
+  'login/setLogin', async (param:{LoginData: LoginDataType}) => {
+
     try {
-      const res = await LoginApi.setLogin(LoginData)
+      const res = await LoginApi.setLogin(param.LoginData)
       if (res.data.resultCode === 0) {
         return {isLogin: true}
       }
@@ -37,6 +38,9 @@ export const slice = createSlice({
     isLogin: false,
   } ,
   reducers: {
+    setIsLogin(state, action: PayloadAction<{ isLogin: boolean }>){
+      state.isLogin = action.payload.isLogin
+    }
    },
   extraReducers: (builder) => {
     builder.addCase(setLogin.fulfilled, (state, action) => {
@@ -52,4 +56,5 @@ export const slice = createSlice({
   }
 })
 export const loginReducer = slice.reducer
+export const {setIsLogin} = slice.actions
 //actions

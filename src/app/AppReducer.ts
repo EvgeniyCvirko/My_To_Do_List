@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {AuthApi} from '../api/AuthApi';
+import {setIsLogin} from '../feature/Auth/LoginReducer';
 
 
 
@@ -9,6 +10,7 @@ export const setIsInitialized = createAsyncThunk(
     try {
       const res = await AuthApi.authMe()
       if (res.data.resultCode === 0) {
+thunkApi.dispatch(setIsLogin({isLogin:true}))
       }
       return {isInitialized: true}
     } catch {}

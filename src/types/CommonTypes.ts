@@ -28,6 +28,6 @@ export type TaskType = {
 export type LoginDataType = {
   rememberMe: boolean,
   email: string,
-  login: string,
+  password: string,
   captcha: boolean | null
 }
