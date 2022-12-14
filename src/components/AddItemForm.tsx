@@ -1,4 +1,6 @@
 import {ChangeEvent, KeyboardEvent, useState} from 'react';
+import s from './CommonStyle.module.css'
+import {Button} from './Button';
 
 type AddItemFormType = {
   addItem: (title: string) => void
@@ -14,11 +16,18 @@ export const AddItemForm = (props:AddItemFormType ) => {
       setValue('')
     }
   }
+  const addItemHandler= () => {
+      props.addItem(value)
+      setValue('')
+  }
 
-  return <div>
-    <input autoFocus
-           value={value}
-           onChange={addFormHandler}
-           onKeyPress={onKeyHandler}/>
-  </div>
+  return(<div className={s.addItemForm}>
+    <div className={s.input}>
+      <input autoFocus
+             value={value}
+             onChange={addFormHandler}
+             onKeyPress={onKeyHandler}/>
+    </div>
+    <Button name='+' callback={addItemHandler}/>
+  </div>)
 }

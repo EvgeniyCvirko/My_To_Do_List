@@ -3,6 +3,7 @@ import {TaskType} from '../../../../../types/CommonTypes';
 import {EditableSpan} from '../../../../../components/EditableSpan';
 import {useAppDispatch} from '../../../../../utils/hooks';
 import {deleteTask} from '../TasksReducer';
+import {Button} from '../../../../../components/Button';
 
 type TaskPropsType = {
   task: TaskType
@@ -21,6 +22,6 @@ dispatch(deleteTask({todolistId: props.task.todoListId, taskId: props.task.id}))
   return <div className={s.task}>
     <input type="checkbox"/>
     <EditableSpan text={props.task.title} changeTitle={changeTitle}/>
-    <button onClick={deleteHandler}>delete</button>
+    <Button name='Delete' callback={deleteHandler}/>
   </div>
 }

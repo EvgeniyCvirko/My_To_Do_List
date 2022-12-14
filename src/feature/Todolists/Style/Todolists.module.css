@@ -1,32 +1,64 @@
 /* todolists */
 .todolists {
-display: flex;
-  flex-direction: column;
-  padding: 40px;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+
 }
+
 .addForm {
-  margin: 45px 0 90px 0 ;
+    width: 265px;
+    margin: 45px 0 90px 0;
 }
+
 .todolistRender {
-  display: flex;
-  width: 90%;
-  margin: 0 auto;
-  overflow: scroll;
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    overflow: scroll;
 }
 
 /* todolist */
 .todolist {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 30px;
-  width: 300px;
-  color: #212121;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 20px;
+    width: 350px;
+    color: #212121;
+}
+
+.title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.title div {
+    flex-basis: 80%;
+}
+.buttons {
+    display: flex;
 }
 
 
-/* taskS */
+/* tasks */
+.tasks {
+    width: 100%;
+}
+/* task */
 .task {
-  display: flex;
-  color: #212121;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: #212121;
+    margin: 15px 0;
+}
+.task input {
+flex-basis: 10%;
+}
+.task div {
+    flex-basis: 65%;
+}
+.task button {
+    flex-basis: 20%;
 }

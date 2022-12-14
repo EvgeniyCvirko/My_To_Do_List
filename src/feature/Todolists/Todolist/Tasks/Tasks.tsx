@@ -3,6 +3,7 @@ import {useAppDispatch, useAppSelector} from '../../../../utils/hooks';
 import {useEffect} from 'react';
 import {addTasks, changeTitleTask, getTasks} from './TasksReducer';
 import {AddItemForm} from '../../../../components/AddItemForm';
+import s from './../../Style/Todolists.module.css'
 
 type TasksPropsType = {
   todolistId: string
@@ -27,7 +28,7 @@ export const Tasks = (props: TasksPropsType) => {
     tasks.map((t, i) =>
       <Task key={i} task={t} callback={changeTitle}/>)
     : <span>{'Нет в списке задач'}</span>
-  return <div>
+  return <div className={s.tasks}>
     <AddItemForm addItem={addTask}/>
     {
       task

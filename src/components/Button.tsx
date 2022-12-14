@@ -13,6 +13,6 @@ export const Button: React.FC<ButtonPropsType> = ({name, callback, className}) =
   }
 
   return(
-      <button className={s.button + className}  onClick={onClickHandler}>{name}</button>
+      <button className={s.button}  onClick={onClickHandler}>{name}</button>
   )
 }
