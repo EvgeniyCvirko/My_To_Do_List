@@ -55,7 +55,7 @@ export const slice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getTodolists.fulfilled, (state, action) => {
       if (action.payload) {
-        return action.payload.todolists.map(el => ({...el, filter: 'all'}))
+        return action.payload.todolists.map(el => ({...el, filter: 'All'}))
       }
     });
     builder.addCase(changeTodolistTitle.fulfilled, (state, action) => {
@@ -73,7 +73,7 @@ export const slice = createSlice({
     });
     builder.addCase(createTodolist.fulfilled, (state, action) => {
       if (action.payload) {
-        state.unshift({...action.payload.todolist, filter: 'all'})
+        state.unshift({...action.payload.todolist, filter: 'All'})
       }
     });
   },

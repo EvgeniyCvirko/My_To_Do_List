@@ -2,8 +2,8 @@ import { changeTodolistTitle, todolistsReducer } from "../feature/Todolists/Todo
 import { TodolistServerType } from "../types/CommonTypes"
 
 const startState: TodolistServerType [] = [
-    {id: "toDoListID1", title: 'What to learn', filter:'all', addedDate: '', order:0},
-    {id: "toDoListID2", title: 'What to buy', filter:'all', addedDate: '', order:0},
+    {id: "toDoListID1", title: 'What to learn', filter:'All', addedDate: '', order:0},
+    {id: "toDoListID2", title: 'What to buy', filter:'All', addedDate: '', order:0},
 ]
 
 test('correct todolist after change title', () => {

@@ -24,11 +24,11 @@ dispatch(removeTodolist(props.todolist.id))
     <EditableSpan text={props.todolist.title} changeTitle={changeTitle} />
     <button onClick={removeTodolistHandler}>Delete</button>
     </div>
-    <Tasks  todolistId={props.todolist.id}/>
-    <div>
-      <button>All</button>
-      <button>Active</button>
-      <button>Completed</button>
+      <Tasks todolistId={props.todolist.id}/>
+    <div className={s.buttons}>
+      {buttonRender('All')}
+      {buttonRender('Active')}
+      {buttonRender('Compleated')}
     </div>
   </div>
 }
