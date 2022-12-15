@@ -1,21 +1,20 @@
 import {ChangeEvent, KeyboardEvent, useState} from 'react';
 
 type EditableSpanType = {
-  text: string
+  title: string
   changeTitle: (title: string) => void
 }
 
 export const EditableSpan = (props: EditableSpanType) => {
   const [editMode, setEditMode] = useState<boolean>(false)
-  const [value, setValue] = useState<string>(props.text)
+  const [value, setValue] = useState<string>(props.title)
   const onEditHandler = () => setEditMode(true)
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
   const offEditMode = () => {
     props.changeTitle(value)
     setEditMode(false)
   }
-  const onPressHandler = (e:KeyboardEvent<HTMLInputElement>) => e.code === "Enter" && offEditMode()
-
+  const onPressHandler = (e: KeyboardEvent<HTMLInputElement>) => e.code === 'Enter' && offEditMode()
   return <div>
     {
       editMode ?
@@ -24,7 +23,7 @@ export const EditableSpan = (props: EditableSpanType) => {
                onChange={onChangeHandler}
                onBlur={offEditMode}
                onKeyPress={onPressHandler}/>
-        : <span onDoubleClick={onEditHandler}>{value}</span>
+        : <span onDoubleClick={onEditHandler}>{props.title}</span>
     }
   </div>
 }

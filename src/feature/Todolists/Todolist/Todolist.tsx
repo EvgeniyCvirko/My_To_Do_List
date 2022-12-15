@@ -41,7 +41,7 @@ export const Todolist = (props: TodolistPropsType) => {
 
   return <div className={s.todolist}>
     <div className={s.title}>
-      <EditableSpan text={props.todolist.title} changeTitle={changeTitle}/>
+      <EditableSpan title={props.todolist.title} changeTitle={changeTitle}/>
       <Button name="Delete" callback={removeTodolistHandler}/>
     </div>
     <Tasks todolistId={props.todolist.id}/>
