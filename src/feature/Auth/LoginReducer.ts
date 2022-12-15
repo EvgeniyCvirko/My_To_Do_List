@@ -38,7 +38,7 @@ export const slice = createSlice({
     isLogin: false,
   } ,
   reducers: {
-    setIsLogin(state, action: PayloadAction<{ isLogin: boolean }>){
+    setIsLogin(state, action: PayloadAction<{ isLogin: boolean }>) {
       state.isLogin = action.payload.isLogin
     }
    },

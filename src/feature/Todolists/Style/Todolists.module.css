@@ -33,9 +33,11 @@
     display: flex;
     align-items: center;
 }
+
 .title div {
     flex-basis: 80%;
 }
+
 .buttons {
     display: flex;
 }
@@ -45,6 +47,7 @@
 .tasks {
     width: 100%;
 }
+
 /* task */
 .task {
     width: 100%;
@@ -53,15 +56,19 @@
     color: #212121;
     margin: 15px 0;
 }
+
 .task input {
-flex-basis: 10%;
+    flex-basis: 10%;
 }
+
 .task div {
     flex-basis: 65%;
 }
+
 .task button {
     flex-basis: 20%;
 }
+
 .taskCompleated {
     width: 100%;
     display: flex;
@@ -70,15 +77,19 @@ flex-basis: 10%;
     margin: 15px 0;
     opacity: 0.5;
 }
+
 .taskCompleated input {
     flex-basis: 10%;
 }
+
 .taskCompleated div {
     flex-basis: 65%;
 }
+
 .taskCompleated span {
     text-decoration: line-through;
 }
+
 .taskCompleated button {
     flex-basis: 20%;
 }
