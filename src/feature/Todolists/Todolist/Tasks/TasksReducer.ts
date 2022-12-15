@@ -22,8 +22,8 @@ export const getTasks = createAsyncThunk(
   }
 )
 
-export const changeTitleTask = createAsyncThunk(
-  'tasks/updateTitle', async (param:{todolistId: string, taskId: string, newTask:ApiTaskType}, thunkApi) => {
+export const updateTask = createAsyncThunk(
+  'tasks/updateTask', async (param:{todolistId: string, taskId: string, newTask:ApiTaskType}, thunkApi) => {
     const {todolistId, taskId,newTask } = param
     const state = thunkApi.getState() as AppRootStateType
     const task = state.tasks[todolistId].find(e => e.id === taskId)
@@ -98,7 +98,7 @@ export const slice = createSlice({
         action.payload.todolists.forEach(el => state[el.id] = [])
       }
     });
-    builder.addCase(changeTitleTask.fulfilled, (state, action) => {
+    builder.addCase(updateTask.fulfilled, (state, action) => {
       if (action.payload) {
         const index = state[action.payload.todolistId].findIndex(el => el.id === action.payload?.task.id)
         state[action.payload.todolistId].splice(index,1, action.payload.task)

@@ -1,7 +1,7 @@
 import {Task} from './Task/Task';
 import {useAppDispatch, useAppSelector} from '../../../../utils/hooks';
 import {useEffect} from 'react';
-import {addTasks, changeTitleTask, getTasks} from './TasksReducer';
+import {addTasks, getTasks} from './TasksReducer';
 import {AddItemForm} from '../../../../components/AddItemForm';
 import s from './../../Style/Todolists.module.css'
 
@@ -16,9 +16,7 @@ export const Tasks = (props: TasksPropsType) => {
     dispatch(getTasks(props.todolistId))
   }, [])
 
-  const changeTitle = (id: string, title: string) => {
-    dispatch(changeTitleTask({todolistId: props.todolistId, taskId: id, newTask: {title}}))
-  }
+
 
   const addTask = (title: string) => {
     dispatch(addTasks({todolistId: props.todolistId, title}))
@@ -26,7 +24,10 @@ export const Tasks = (props: TasksPropsType) => {
 
   const task = tasks.length ?
     tasks.map((t, i) =>
-      <Task key={i} task={t} callback={changeTitle}/>)
+      <Task key={i}
+            taskTitle={t.title}
+            todolistId={t.todoListId}
+      taskId={t.id}/>)
     : <span>{'Нет в списке задач'}</span>
   return <div className={s.tasks}>
     <AddItemForm addItem={addTask}/>
