@@ -25,7 +25,7 @@ const dispatch = useAppDispatch()
   const deleteHandler = () => {
 dispatch(deleteTask({todolistId: props.todolistId, taskId: props.taskId}))
   }
-  return <div className={s.task}>
+  return <div className={ props.status === TaskStatues.Completed ? s.taskCompleated : s.task}>
     <input type="checkbox" checked={props.status === TaskStatues.Completed} onChange={(e)=>changeStatusTask(e.currentTarget.checked)}/>
     <EditableSpan text={props.taskTitle} changeTitle={changeTitle}/>
     <Button name='Delete' callback={deleteHandler}/>
