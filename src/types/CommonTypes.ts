@@ -15,7 +15,7 @@ export type TaskType = {
   description: string,
   title: string,
   completed: boolean,
-  status: number,
+  status: TaskStatues,
   priority: number,
   startDate: Date,
   deadline: Date,
@@ -23,6 +23,13 @@ export type TaskType = {
   todoListId: string,
   order: number,
   addedDate: Date,
+}
+
+export enum TaskStatues {
+  New = 0,
+  InProgress = 1,
+  Completed = 2,
+  Draft = 3,
 }
 
 export type LoginDataType = {

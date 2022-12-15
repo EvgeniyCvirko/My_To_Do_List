@@ -42,7 +42,7 @@ export const updateTask = createAsyncThunk(
     }
     try {
       const res = await TaskApi.updateTask(todolistId, taskId, apiTask)
-      return {todolistId, task: res.data.data }
+      return param
     } catch (error) {
       if (axios.isAxiosError(error)) {
         return
@@ -100,10 +100,11 @@ export const slice = createSlice({
     });
     builder.addCase(updateTask.fulfilled, (state, action) => {
       if (action.payload) {
-        const index = state[action.payload.todolistId].findIndex(el => el.id === action.payload?.task.id)
-        state[action.payload.todolistId].splice(index,1, action.payload.task)
-        //const newTask = action.payload.task
-        //state[action.payload.todolistId].map(el => el.id === action.payload?.task.id ? el=newTask : el )
+        const task = state[action.payload.todolistId]
+        const index = state[action.payload.todolistId].findIndex(el => el.id === action.payload?.taskId)
+        if(index > - 1){
+          task[index] = {...task[index], ...action.payload.newTask}
+        }
       }
     });
     builder.addCase(removeTodolist.fulfilled, (state, action) => {
