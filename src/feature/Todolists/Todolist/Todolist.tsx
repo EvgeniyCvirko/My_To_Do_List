@@ -13,7 +13,6 @@ type TodolistPropsType = {
 export const Todolist = (props: TodolistPropsType) => {
   const dispatch = useAppDispatch()
   const changeTitle = (title: string) => {
-
     dispatch(changeTodolistTitle({todolistId: props.todolist.id, title}))
   }
 
