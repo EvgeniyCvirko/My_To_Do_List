@@ -1,7 +1,8 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {FilterType, TodolistServerType} from '../../types/CommonTypes';
 import {TodolistApi} from '../../api/TodolistApi';
-import {appSetStatus} from '../../app/AppReducer';
+import {appSetError, appSetStatus} from '../../app/AppReducer';
+import axios from 'axios';
 
 
 //thunk
@@ -12,7 +13,12 @@ export const getTodolists = createAsyncThunk(
       const res = await TodolistApi.getTodolists()
       thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
       return {todolists: res.data}
-    } catch {
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        thunkApi.dispatch(appSetStatus({status: 'failed'}))
+        thunkApi.dispatch(appSetError({error: error.message}))
+        return
+      }
     }
   }
 )
@@ -27,6 +33,11 @@ export const changeTodolistTitle = createAsyncThunk(
         return {todolistId: param.todolistId, title: param.title}
       }
     } catch (error) {
+      if (axios.isAxiosError(error)) {
+        thunkApi.dispatch(appSetStatus({status: 'failed'}))
+        thunkApi.dispatch(appSetError({error: error.message}))
+        return
+      }
     }
   }
 )
@@ -40,7 +51,12 @@ export const removeTodolist = createAsyncThunk(
         thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
         return {todolistId}
       }
-    } catch {
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        thunkApi.dispatch(appSetStatus({status: 'failed'}))
+        thunkApi.dispatch(appSetError({error: error.message}))
+        return
+      }
     }
   }
 )
@@ -54,7 +70,12 @@ export const createTodolist = createAsyncThunk(
         thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
         return {todolist: res.data.data.item}
       }
-    } catch {
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        thunkApi.dispatch(appSetStatus({status: 'failed'}))
+        thunkApi.dispatch(appSetError({error: error.message}))
+        return
+      }
     }
   }
 )

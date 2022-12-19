@@ -7,6 +7,7 @@ import {useAppDispatch, useAppSelector} from '../utils/hooks';
 import {setIsInitialized} from './AppReducer';
 import {setLogout} from '../feature/Auth/LoginReducer';
 import {Loading} from '../components/Common/Loading';
+import {ErrorBar} from '../components/Common/ErrorBar';
 
 export const App = () => {
   const isInitialized = useAppSelector(state => state.app.isInitialized)
@@ -26,6 +27,7 @@ dispatch(setLogout())
   }
   return (
     <div className="App">
+      <ErrorBar/>
       <header className="App-header">
         <div className="Todolist">TodoList</div>
         <div className="Logout" onClick={logoutHandler}>Logout</div>

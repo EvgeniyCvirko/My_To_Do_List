@@ -5,6 +5,7 @@ import {createTodolist, getTodolists, removeTodolist} from '../../TodolistsReduc
 import axios from 'axios';
 import {AppRootStateType} from '../../../../app/store';
 import {ApiTaskType, NewTaskType} from '../../../../api/Types';
+import {appSetError, appSetStatus} from '../../../../app/AppReducer';
 
 //thunk
 export const getTasks = createAsyncThunk(
@@ -16,6 +17,8 @@ export const getTasks = createAsyncThunk(
       return {todolistId, tasks}
     } catch (error) {
       if (axios.isAxiosError(error)) {
+        thunkApi.dispatch(appSetStatus({status: 'failed'}))
+        thunkApi.dispatch(appSetError({error: error.message}))
         return
       }
     }
@@ -45,6 +48,8 @@ export const updateTask = createAsyncThunk(
       return param
     } catch (error) {
       if (axios.isAxiosError(error)) {
+        thunkApi.dispatch(appSetStatus({status: 'failed'}))
+        thunkApi.dispatch(appSetError({error: error.message}))
         return
       }
     }
@@ -59,6 +64,8 @@ export const addTasks = createAsyncThunk(
       return {todolistId: data.item.todoListId, task: data.item}
     } catch (error) {
       if (axios.isAxiosError(error)) {
+        thunkApi.dispatch(appSetStatus({status: 'failed'}))
+        thunkApi.dispatch(appSetError({error: error.message}))
         return
       }
     }
@@ -72,6 +79,8 @@ export const deleteTask = createAsyncThunk(
       return {todolistId, taskId}
     } catch (error) {
       if (axios.isAxiosError(error)) {
+        thunkApi.dispatch(appSetStatus({status: 'failed'}))
+        thunkApi.dispatch(appSetError({error: error.message}))
         return
       }
     }
