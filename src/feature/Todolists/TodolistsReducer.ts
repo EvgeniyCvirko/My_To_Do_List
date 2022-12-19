@@ -1,13 +1,16 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {FilterType, TodolistServerType} from '../../types/CommonTypes';
 import {TodolistApi} from '../../api/TodolistApi';
+import {appSetStatus} from '../../app/AppReducer';
 
 
 //thunk
 export const getTodolists = createAsyncThunk(
-  'todolists/get', async () => {
+  'todolists/get', async (param, thunkApi) => {
+    thunkApi.dispatch(appSetStatus({status: 'loading'}))
     try {
       const res = await TodolistApi.getTodolists()
+      thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
       return {todolists: res.data}
     } catch {
     }
@@ -16,9 +19,11 @@ export const getTodolists = createAsyncThunk(
 
 export const changeTodolistTitle = createAsyncThunk(
   'todolists/update', async (param: { todolistId: string, title: string }, thunkApi) => {
+    thunkApi.dispatch(appSetStatus({status: 'loading'}))
     try {
       const res = await TodolistApi.updateTodolists(param.todolistId, param.title)
       if (res.data.resultCode === 0) {
+        thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
         return {todolistId: param.todolistId, title: param.title}
       }
     } catch (error) {
@@ -28,9 +33,11 @@ export const changeTodolistTitle = createAsyncThunk(
 
 export const removeTodolist = createAsyncThunk(
   'todolists/remove', async (todolistId: string, thunkApi) => {
+    thunkApi.dispatch(appSetStatus({status: 'loading'}))
     try {
       const res = await TodolistApi.deleteTodolist(todolistId)
       if (res.data.resultCode === 0) {
+        thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
         return {todolistId}
       }
     } catch {
@@ -40,9 +47,11 @@ export const removeTodolist = createAsyncThunk(
 
 export const createTodolist = createAsyncThunk(
   'todolists/create', async (title: string, thunkApi) => {
+    thunkApi.dispatch(appSetStatus({status: 'loading'}))
     try {
       const res = await TodolistApi.createTodolist(title)
       if (res.data.resultCode === 0) {
+        thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
         return {todolist: res.data.data.item}
       }
     } catch {
