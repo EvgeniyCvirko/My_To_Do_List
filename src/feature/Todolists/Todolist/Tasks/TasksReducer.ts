@@ -10,10 +10,11 @@ import {appSetError, appSetStatus} from '../../../../app/AppReducer';
 //thunk
 export const getTasks = createAsyncThunk(
   'tasks/get', async (todolistId: string, thunkApi) => {
-
+    thunkApi.dispatch(appSetStatus({status: 'loading'}))
     try {
       const res = await TaskApi.getTasks(todolistId)
       const tasks = res.data.items
+      thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
       return {todolistId, tasks}
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -27,6 +28,7 @@ export const getTasks = createAsyncThunk(
 
 export const updateTask = createAsyncThunk(
   'tasks/updateTask', async (param: { todolistId: string, taskId: string, newTask: ApiTaskType }, thunkApi) => {
+    thunkApi.dispatch(appSetStatus({status: 'loading'}))
     const {todolistId, taskId, newTask} = param
     const state = thunkApi.getState() as AppRootStateType
     const task = state.tasks[todolistId].find(e => e.id === taskId)
@@ -45,6 +47,7 @@ export const updateTask = createAsyncThunk(
     }
     try {
       const res = await TaskApi.updateTask(todolistId, taskId, apiTask)
+      thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
       return param
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -58,9 +61,11 @@ export const updateTask = createAsyncThunk(
 
 export const addTasks = createAsyncThunk(
   'tasks/create', async (param: { todolistId: string, title: string }, thunkApi) => {
+    thunkApi.dispatch(appSetStatus({status: 'loading'}))
     try {
       const res = await TaskApi.createTasks(param.todolistId, param.title)
       const data = res.data.data
+      thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
       return {todolistId: data.item.todoListId, task: data.item}
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -73,9 +78,11 @@ export const addTasks = createAsyncThunk(
 )
 export const deleteTask = createAsyncThunk(
   'tasks/delete', async (param: { todolistId: string, taskId: string }, thunkApi) => {
+    thunkApi.dispatch(appSetStatus({status: 'loading'}))
     const {todolistId, taskId} = param
     try {
       const res = await TaskApi.deleteTask(todolistId, taskId)
+      thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
       return {todolistId, taskId}
     } catch (error) {
       if (axios.isAxiosError(error)) {
