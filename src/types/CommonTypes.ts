@@ -38,3 +38,4 @@ export type LoginDataType = {
   password: string,
   captcha: boolean | null
 }
+export type StatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
