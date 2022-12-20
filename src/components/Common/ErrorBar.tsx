@@ -5,23 +5,20 @@ import cn from 'classnames'
 import {appSetError} from '../../app/AppReducer';
 
 export const ErrorBar = () => {
-  const [isClose, setIsClose] = useState<boolean>(true)
   const error = useAppSelector(state => state.app.error)
   const dispatch = useAppDispatch()
   const closeHandler = () => {
-    setIsClose(!isClose)
     dispatch(appSetError({error: null}))
 
   }
-  if (isClose) {
+  if (error) {
     setTimeout(() => {
-      setIsClose(!isClose)
       dispatch(appSetError({error: null}))
     }, 10000)
   }
 
   return <div className='errorBlock'>
-    {error && isClose && <div className={cn({['alert']: error}, 'alert-danger')}>{error}
+    {error && <div className={cn({['alert']: error}, 'alert-danger')}>{error}
         <div className="close" onClick={closeHandler}>close</div>
     </div>}
   </div>
