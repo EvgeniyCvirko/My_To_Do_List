@@ -6,11 +6,12 @@ export type GetTasksType = {
   error: string
 }
 
- export type ResponseType<T={}> = {
-   data: T,
-   resultCode: number,
-   messages: string[]
- }
+export type ResponseType<T = {}> = {
+  data: T,
+  resultCode: number,
+  messages: string[]
+  fieldsErrors?: Array<FieldErrorType>
+}
 export type CreateTodolistDataType = {
   item: TodolistType
 }

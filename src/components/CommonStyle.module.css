@@ -38,4 +38,10 @@
 .input {
     flex-basis: 80%;
 }
-
+.error {
+     flex-basis: 80%;
+     color:red;
+ }
+.error input{
+    border: 1px solid red;
+}

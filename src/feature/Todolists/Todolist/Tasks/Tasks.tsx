@@ -1,6 +1,6 @@
 import {Task} from './Task/Task';
 import {useAppDispatch, useAppSelector} from '../../../../utils/hooks';
-import {useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 import {addTasks, getTasks} from './TasksReducer';
 import {AddItemForm} from '../../../../components/AddItemForm';
 import s from './../../Style/Todolists.module.css'
@@ -14,15 +14,13 @@ export const Tasks = (props: TasksPropsType) => {
   const tasks = useAppSelector(state => state.tasks[props.todolistId])
   const todolist = useAppSelector(state => state.todolists)
   const dispatch = useAppDispatch()
-
   useEffect(() => {
     dispatch(getTasks(props.todolistId))
   }, [])
 
-
-  const addTask = (title: string) => {
+  const addTask = useCallback((title: string) => {
     dispatch(addTasks({todolistId: props.todolistId, title}))
-  }
+  },[])
   let taskForRender = tasks
   if (props.filter === 'Active') {
     taskForRender = tasks.filter(e => e.status === TaskStatues.New)
