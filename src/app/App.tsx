@@ -14,16 +14,16 @@ export const App = () => {
   const isLogin = useAppSelector(state => state.login.isLogin)
   const status = useAppSelector(state => state.app.status)
   const dispatch = useAppDispatch()
-  useEffect(() =>{
-      dispatch(setIsInitialized())
+  useEffect(() => {
+    dispatch(setIsInitialized())
   }, [isLogin])
 
-  if ( !isInitialized) {
+  if (!isInitialized) {
     return <Loading/>
   }
 
   const logoutHandler = () => {
-dispatch(setLogout())
+    dispatch(setLogout())
   }
   return (
     <div className="App">

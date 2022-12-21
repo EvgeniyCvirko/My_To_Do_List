@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './ErrorBar.css'
 import {useAppDispatch, useAppSelector} from '../../utils/hooks';
 import cn from 'classnames'

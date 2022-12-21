@@ -18,10 +18,7 @@ export type CreateTodolistDataType = {
   item: TodolistType
 }
 
-export type CreateTaskDataType = {
-  item: TaskType
-}
-export type NewTaskType ={
+export type NewTaskType = {
   title: string
   description: string
   completed: boolean
@@ -31,7 +28,7 @@ export type NewTaskType ={
   deadline: Date
 }
 
-export type ApiTaskType ={
+export type ApiTaskType = {
   title?: string | undefined,
   description?: string | undefined,
   completed?: boolean | undefined,
@@ -42,7 +39,9 @@ export type ApiTaskType ={
 }
 
 export type AuthType = {
-    id: number,
-    email: string,
-    login: string,
+  id: number,
+  email: string,
+  login: string,
 }
+
+export type ThunkError = { rejectValue: { errors: Array<string>, fieldsErrors?: Array<FieldErrorType> } }

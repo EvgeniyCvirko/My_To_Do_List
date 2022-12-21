@@ -20,7 +20,7 @@ export const Todolist = (props: TodolistPropsType) => {
     dispatch(removeTodolist(props.todolist.id))
   }
 
-  const renderBtns = (name: FilterType) =>{
+  const renderBtns = (name: FilterType) => {
     const callback = () => dispatch(changeFilter({todolistId: props.todolist.id, filter: name}))
     return <Button name={name} callback={callback}/>
   }

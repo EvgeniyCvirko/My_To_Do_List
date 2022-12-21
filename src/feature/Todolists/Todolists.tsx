@@ -35,7 +35,9 @@ export const Todolists = () => {
   }
 
   return (<div className={s.todolists}>
-      <div className={s.addForm}><AddItemForm addItem={addTodolist}/></div>
+      <div className={s.addForm}>
+        <AddItemForm addItem={addTodolist}/>
+      </div>
       <div className={s.todolistRender}>
         {todolistRender}
       </div>
