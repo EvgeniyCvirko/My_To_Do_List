@@ -1,5 +1,7 @@
 import {TaskType, TodolistType} from '../types/CommonTypes'
 
+export type FieldErrorType = { field: string; error: string }
+
 export type GetTasksType = {
   items: TaskType[],
   totalCount: number
