@@ -2,18 +2,23 @@ import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AuthApi} from '../api/AuthApi';
 import {setIsLogin} from '../feature/Auth/LoginReducer';
 import {StatusType} from '../types/CommonTypes';
+import {ThunkError} from '../api/Types';
+import {asyncServerAppError, asyncServerNetworkError} from '../utils/error--utils';
 
 
 //thunk
-export const setIsInitialized = createAsyncThunk(
+export const setIsInitialized = createAsyncThunk<{isInitialized: boolean}, undefined, ThunkError>(
   'app/me', async (param, thunkApi) => {
     try {
       const res = await AuthApi.authMe()
       if (res.data.resultCode === 0) {
         thunkApi.dispatch(setIsLogin({isLogin: true}))
+        return {isInitialized: true}
+      } else {
+        return asyncServerAppError(thunkApi, res.data)
       }
-      return {isInitialized: true}
-    } catch {
+    } catch (error: any) {
+      return asyncServerNetworkError(thunkApi, error)
     }
   }
 )
@@ -36,9 +41,7 @@ export const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(setIsInitialized.fulfilled, (state, action) => {
-      if (action.payload) {
         state.isInitialized = action.payload.isInitialized
-      }
     });
   }
 })
