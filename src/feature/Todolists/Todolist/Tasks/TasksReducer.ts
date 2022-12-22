@@ -104,9 +104,7 @@ export const slice = createSlice({
       state[action.payload.todolistId] = action.payload.tasks
     });
     builder.addCase(getTodolists.fulfilled, (state, action) => {
-      if (action.payload) {
         action.payload.todolists.forEach(el => state[el.id] = [])
-      }
     });
     builder.addCase(updateTask.fulfilled, (state, action) => {
       const task = state[action.payload.todolistId]
@@ -116,14 +114,10 @@ export const slice = createSlice({
       }
     });
     builder.addCase(removeTodolist.fulfilled, (state, action) => {
-      if (action.payload) {
         delete state[action.payload.todolistId]
-      }
     });
     builder.addCase(createTodolist.fulfilled, (state, action) => {
-      if (action.payload) {
         state[action.payload.todolist.id] = []
-      }
     });
     builder.addCase(addTasks.fulfilled, (state, action) => {
       state[action.payload.todoListId] = [action.payload, ...state[action.payload.todoListId]]
