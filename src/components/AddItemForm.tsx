@@ -6,7 +6,7 @@ type AddItemFormType = {
   addItem: (title: string) => void
 }
 export const AddItemForm = React.memo((props:AddItemFormType ) => {
-  const [value, setValue] = useState<string>('Title')
+  const [value, setValue] = useState<string>('')
   const [error, setError] = useState<string | null>(null)
   console.log('render add item')
   const addFormHandler = (e: ChangeEvent<HTMLInputElement>) => {
