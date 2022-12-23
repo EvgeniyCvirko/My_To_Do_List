@@ -44,4 +44,4 @@ export type AuthType = {
   login: string,
 }
 
-export type ThunkError = { rejectValue: { errors: Array<string>, fieldsErrors?: Array<FieldErrorType> } }
+export type ThunkError = { rejectValue: { errors: string, fieldsErrors?: Array<FieldErrorType> } }
