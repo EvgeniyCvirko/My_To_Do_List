@@ -64,7 +64,7 @@ export const addTasks = createAsyncThunk<TaskType, { todolistId: string, title: 
         thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
         return res.data.data.item
       } else {
-        return asyncServerAppError(thunkApi, res.data)
+        return asyncServerAppError(thunkApi, res.data, false)
       }
     } catch (error: any) {
       return asyncServerNetworkError(thunkApi, error, true)

@@ -4,7 +4,7 @@ import {Button} from './Button';
 
 export type AddItemFormSubmitHelperType = { setValue :(value:string) => void, setError: (error: string)=>void }
 
-export type AddItemFormType = {
+type AddItemFormType = {
   addItem: (title: string, helper:AddItemFormSubmitHelperType) => void
 }
 export const AddItemForm = React.memo((props:AddItemFormType ) => {

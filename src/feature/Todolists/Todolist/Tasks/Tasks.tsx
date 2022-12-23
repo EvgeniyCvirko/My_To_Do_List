@@ -2,7 +2,7 @@ import {Task} from './Task/Task';
 import {useAppDispatch, useAppSelector} from '../../../../utils/hooks';
 import {useCallback, useEffect} from 'react';
 import {addTasks, getTasks} from './TasksReducer';
-import {AddItemForm} from '../../../../components/AddItemForm';
+import {AddItemForm, AddItemFormSubmitHelperType} from '../../../../components/AddItemForm';
 import s from './../../Style/Todolists.module.css'
 import {FilterType, TaskStatues} from '../../../../types/CommonTypes';
 
@@ -18,8 +18,18 @@ export const Tasks = (props: TasksPropsType) => {
     dispatch(getTasks(props.todolistId))
   }, [])
 
-  const addTask = useCallback((title: string) => {
-    dispatch(addTasks({todolistId: props.todolistId, title}))
+  const addTask = useCallback(async (title: string, helper: AddItemFormSubmitHelperType) => {
+    const resultAction = await dispatch(addTasks({todolistId: props.todolistId, title}))
+      if(addTasks.rejected.match(resultAction)) {
+        if(resultAction.payload?.errors){
+          helper.setError(resultAction.payload.errors)
+        } else {
+          helper.setError('some error occurred')
+        }
+      } else {
+        helper.setValue('')
+      }
+
   },[])
   let taskForRender = tasks
   if (props.filter === 'Active') {
