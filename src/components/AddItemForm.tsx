@@ -2,13 +2,14 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import s from './CommonStyle.module.css'
 import {Button} from './Button';
 
-type AddItemFormType = {
-  addItem: (title: string) => void
+export type AddItemFormSubmitHelperType = { setValue :(value:string) => void, setError: (error: string)=>void }
+
+export type AddItemFormType = {
+  addItem: (title: string, helper:AddItemFormSubmitHelperType) => void
 }
 export const AddItemForm = React.memo((props:AddItemFormType ) => {
   const [value, setValue] = useState<string>('')
   const [error, setError] = useState<string | null>(null)
-  console.log('render add item')
   const addFormHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setError(null)
     setValue(e.currentTarget.value)
@@ -20,11 +21,9 @@ export const AddItemForm = React.memo((props:AddItemFormType ) => {
   }
   const addItemHandler= () => {
       if (value.trim() !== ''){
-        props.addItem(value)
-        setValue('')
-        setError(null)
+        props.addItem(value, {setValue, setError})
       } else {
-        setError('Title is Title is required')
+        setError('Title is required')
       }
 
   }

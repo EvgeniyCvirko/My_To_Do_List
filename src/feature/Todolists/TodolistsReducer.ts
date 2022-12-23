@@ -63,10 +63,10 @@ export const createTodolist = createAsyncThunk<{todolist:TodolistServerType }, s
         thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
         return {todolist: res.data.data.item}
       } else {
-        return asyncServerAppError(thunkApi, res.data )
+        return asyncServerAppError(thunkApi, res.data, false )
       }
     } catch (error: any) {
-      return asyncServerNetworkError(thunkApi, error)
+      return asyncServerNetworkError(thunkApi, error, false)
     }
   }
 )

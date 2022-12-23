@@ -20,5 +20,5 @@ export const asyncServerNetworkError = (thunkApi: ThunkAPIType, error: AxiosErro
     thunkApi.dispatch(appSetError(({error: error.message.length ? error.message : 'Some error occurred'})))
   }
   thunkApi.dispatch(appSetStatus({status: 'failed'}))
-  return thunkApi.rejectWithValue({errors: error.message[0], fieldsErrors: undefined})
+  return thunkApi.rejectWithValue({errors: error.message, fieldsErrors: undefined})
 }
