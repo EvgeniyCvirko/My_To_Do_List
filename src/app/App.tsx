@@ -25,6 +25,7 @@ export const App = () => {
   const logoutHandler = () => {
     dispatch(setLogout())
   }
+
   return (
     <div className="App">
       <ErrorBar/>
