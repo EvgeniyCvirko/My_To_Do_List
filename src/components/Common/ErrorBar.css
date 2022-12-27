@@ -1,6 +1,6 @@
 .errorBlock {
     width: 35%;
-    height: 70px;
+    height: 75px;
     position: absolute;
     top: 85%;
     left: 5%;
@@ -8,7 +8,7 @@
 .alert {
     height: 100%;
     margin: 0 auto;
-    padding: 12px 16px;
+    padding: 20px 10px;
     border-radius: 4px;
     border-style: solid;
     border-width: 1px;
@@ -57,7 +57,7 @@
     width: 35px;
     height: 15px;
     position: absolute;
-    top:5%;
+    top:3%;
     left: 90%;
 }
 
