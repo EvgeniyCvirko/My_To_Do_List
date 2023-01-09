@@ -1,6 +1,6 @@
 import {Task} from './Task/Task';
 import {useAppDispatch, useAppSelector} from '../../../../utils/hooks';
-import {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {addTasks, getTasks} from './TasksReducer';
 import {AddItemForm, AddItemFormSubmitHelperType} from '../../../../components/AddItemForm';
 import s from './../../Style/Todolists.module.css'
@@ -10,7 +10,7 @@ type TasksPropsType = {
   todolistId: string
   filter: FilterType
 }
-export const Tasks = (props: TasksPropsType) => {
+export const Tasks = React.memo((props: TasksPropsType) => {
   const tasks = useAppSelector(state => state.tasks[props.todolistId])
   const todolist = useAppSelector(state => state.todolists)
   const dispatch = useAppDispatch()
@@ -55,4 +55,4 @@ export const Tasks = (props: TasksPropsType) => {
       task
     }
   </div>
-}
+})

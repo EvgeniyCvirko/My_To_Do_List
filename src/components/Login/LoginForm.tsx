@@ -9,8 +9,7 @@ type LoginFormType = {
   captcha: boolean | null
 }
 export const LoginForm: React.FC<InjectedFormProps<LoginDataType, LoginFormType> & LoginFormType> = (props) => {
-  console.log(props.error);
-  
+
   return <form onSubmit={props.handleSubmit}>
     <div className={s.email}>
       <label>Email:</label>

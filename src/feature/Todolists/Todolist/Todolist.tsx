@@ -5,12 +5,13 @@ import {EditableSpan} from '../../../components/EditableSpan';
 import {useAppDispatch} from '../../../utils/hooks';
 import {changeFilter, changeTodolistTitle, removeTodolist} from '../TodolistsReducer';
 import {Button} from '../../../components/Button';
+import React from 'react';
 
 type TodolistPropsType = {
   todolist: TodolistServerType
 }
 
-export const Todolist = (props: TodolistPropsType) => {
+export const Todolist = React.memo((props: TodolistPropsType) => {
   const dispatch = useAppDispatch()
   const changeTitle = (title: string) => {
     dispatch(changeTodolistTitle({todolistId: props.todolist.id, title}))
@@ -37,4 +38,4 @@ export const Todolist = (props: TodolistPropsType) => {
       {renderBtns('Compleated')}
     </div>
   </div>
-}
+})

@@ -4,6 +4,7 @@ import {useAppDispatch} from '../../../../../utils/hooks';
 import {deleteTask, updateTask} from '../TasksReducer';
 import {Button} from '../../../../../components/Button';
 import {TaskStatues} from '../../../../../types/CommonTypes';
+import React from 'react';
 
 type TaskPropsType = {
   taskTitle: string
@@ -11,7 +12,7 @@ type TaskPropsType = {
   taskId: string
   status: TaskStatues
 }
-export const Task = (props: TaskPropsType) => {
+export const Task = React.memo((props: TaskPropsType) => {
   const dispatch = useAppDispatch()
   const changeTitle = (title: string) => {
     dispatch(updateTask({todolistId: props.todolistId, taskId: props.taskId, newTask: {title}}))
@@ -30,4 +31,4 @@ export const Task = (props: TaskPropsType) => {
     <EditableSpan title={props.taskTitle} changeTitle={changeTitle}/>
     <Button name="Delete" callback={deleteHandler}/>
   </div>
-}
+})
