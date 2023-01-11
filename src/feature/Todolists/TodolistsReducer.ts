@@ -4,6 +4,7 @@ import {TodolistApi} from '../../api/TodolistApi';
 import { appSetStatus} from '../../app/AppReducer';
 import {ThunkError} from '../../api/Types';
 import {asyncServerAppError, asyncServerNetworkError} from '../../utils/error--utils';
+import {log} from 'util';
 
 
 //thunk
@@ -13,6 +14,7 @@ export const getTodolists = createAsyncThunk<{ todolists: TodolistType[] }, unde
     try {
       const res = await TodolistApi.getTodolists()
       thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
+      console.log(res.data)
       return {todolists: res.data}
     } catch (error: any) {
       return asyncServerNetworkError(thunkApi, error)
@@ -20,11 +22,11 @@ export const getTodolists = createAsyncThunk<{ todolists: TodolistType[] }, unde
   }
 )
 
-export const changeTodolistTitle = createAsyncThunk<{todolistId: string, title: string}, {todolistId: string, title: string}, ThunkError>(
+export const changeTodolistTitle = createAsyncThunk<{todolistId: string, title: string, order: number}, {todolistId: string, title: string, order: number}, ThunkError>(
   'todolists/update', async (param, thunkApi) => {
     thunkApi.dispatch(appSetStatus({status: 'loading'}))
     try {
-      const res = await TodolistApi.updateTodolists(param.todolistId, param.title)
+      const res = await TodolistApi.updateTodolists(param.todolistId, param.title, param.order)
       if (res.data.resultCode === 0) {
         thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
         return {todolistId: param.todolistId, title: param.title}
@@ -36,7 +38,22 @@ export const changeTodolistTitle = createAsyncThunk<{todolistId: string, title: 
     }
   }
 )
-
+export const changeOrderTodolist = createAsyncThunk<{todolistId: string, order: number}, {todolistId: string, order: number}, ThunkError>(
+  'todolists/reorder', async (param, thunkApi) => {
+    thunkApi.dispatch(appSetStatus({status: 'loading'}))
+    try {
+      const res = await TodolistApi.reorderTodolists(param.todolistId, param.order)
+      if (res.data.resultCode === 0) {
+        thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
+        //return {todolistId: param.todolistId, title: param.order}
+      } else {
+        return asyncServerAppError(thunkApi, res.data)
+      }
+    } catch (error: any) {
+      return asyncServerNetworkError(thunkApi, error)
+    }
+  }
+)
 export const removeTodolist = createAsyncThunk<{ todolistId: string }, string, ThunkError>(
   'todolists/remove', async (todolistId, thunkApi) => {
     thunkApi.dispatch(appSetStatus({status: 'loading'}))
@@ -80,6 +97,10 @@ export const slice = createSlice({
     changeFilter(state, action: PayloadAction<{ todolistId: string, filter: FilterType }>) {
       const index = state.findIndex(td => td.id === action.payload.todolistId)
       state[index].filter = action.payload.filter
+
+    },
+    changeOrderTodolists(state, action: PayloadAction<{ todolists: TodolistServerType[] }>) {
+      return state = action.payload.todolists
     }
   },
   extraReducers: (builder) => {
@@ -102,4 +123,4 @@ export const slice = createSlice({
 })
 export const todolistsReducer = slice.reducer
 //actions
-export const {changeFilter} = slice.actions
+export const {changeFilter, changeOrderTodolists} = slice.actions

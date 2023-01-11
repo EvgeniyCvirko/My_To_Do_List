@@ -14,7 +14,7 @@ type TodolistPropsType = {
 export const Todolist = React.memo((props: TodolistPropsType) => {
   const dispatch = useAppDispatch()
   const changeTitle = (title: string) => {
-    dispatch(changeTodolistTitle({todolistId: props.todolist.id, title}))
+    dispatch(changeTodolistTitle({todolistId: props.todolist.id, title, order: props.todolist.order}))
   }
 
   const removeTodolistHandler = () => {
@@ -25,6 +25,8 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
     const callback = () => dispatch(changeFilter({todolistId: props.todolist.id, filter: name}))
     return <Button name={name} callback={callback}/>
   }
+
+
 
   return <div className={s.todolist}>
     <div className={s.title}>

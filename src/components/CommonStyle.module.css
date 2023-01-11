@@ -33,6 +33,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+
 }
 .input {
     flex-basis: 80%;
@@ -43,4 +44,7 @@
  }
 .error input{
     border: 1px solid red;
+}
+span {
+    cursor: text;
 }

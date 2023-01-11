@@ -6,8 +6,11 @@ export const TodolistApi = {
   getTodolists () {
     return instance.get<TodolistType[]>('todo-lists')
   },
-  updateTodolists (todolistId: string, title: string) {
-    return instance.put<ResponseType>(`todo-lists/${todolistId}`, {title})
+  updateTodolists (todolistId: string, title: string, order: number) {
+    return instance.put<ResponseType>(`todo-lists/${todolistId}`, {title, order})
+  },
+  reorderTodolists (todolistId: string,order:number) {
+    return instance.put<ResponseType>(`/todo-lists/${todolistId}/reorder`, {order})
   },
   deleteTodolist(todolistId: string) {
     return instance.delete<ResponseType>(`todo-lists/${todolistId}`)

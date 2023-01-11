@@ -16,7 +16,7 @@ export const App = () => {
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(setIsInitialized())
-  }, [isLogin])
+  }, [])
 
   if (!isInitialized) {
     return <Loading/>

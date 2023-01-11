@@ -8,7 +8,7 @@ const startState: TodolistServerType [] = [
 
 test('correct todolist after change title', () => {
 const todolistId = startState[0].id
-const action = changeTodolistTitle.fulfilled({todolistId: "toDoListID1",title: "What to read"}, '', {todolistId: "toDoListID1",title: "What to read"})
+const action = changeTodolistTitle.fulfilled({todolistId: "toDoListID1",title: "What to read", order:0}, '', {todolistId: "toDoListID1",title: "What to read",order:0})
 const endState = todolistsReducer(startState,action)
 
 expect(endState.length).toBe(2)

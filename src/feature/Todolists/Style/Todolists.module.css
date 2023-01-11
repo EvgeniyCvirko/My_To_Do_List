@@ -21,11 +21,15 @@
 /* todolist */
 .todolist {
     display: flex;
+    padding: 25px 10px ;
     flex-direction: column;
     align-items: center;
     margin: 0 20px;
     width: 350px;
     color: #212121;
+    border: 2px solid red;
+    border-radius: 15px;
+    cursor: grab;
 }
 
 .title {
