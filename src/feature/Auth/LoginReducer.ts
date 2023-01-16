@@ -4,8 +4,6 @@ import {LoginDataType} from '../../types/CommonTypes';
 import {ThunkError} from '../../api/Types';
 import {asyncServerAppError, asyncServerNetworkError} from '../../utils/error--utils';
 
-
-
 //thunk
 export const setLogin = createAsyncThunk<{isLogin: boolean},{LoginData: LoginDataType}, ThunkError>(
   'login/setLogin', async (param, thunkApi) => {

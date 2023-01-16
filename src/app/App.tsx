@@ -11,7 +11,6 @@ import {ErrorBar} from '../components/Common/ErrorBar';
 
 export const App = () => {
   const isInitialized = useAppSelector(state => state.app.isInitialized)
-  const isLogin = useAppSelector(state => state.login.isLogin)
   const status = useAppSelector(state => state.app.status)
   const dispatch = useAppDispatch()
   useEffect(() => {
@@ -35,8 +34,8 @@ export const App = () => {
       </header>
       {status === 'loading' && <Loading/>}
       <Routes>
-        <Route path="/*" element={<Todolists/>}/>
-        <Route path="/login" element={<Login/>}/>
+        <Route path={'/*'} element={<Todolists/>}/>
+        <Route path={'/login'} element={<Login/>}/>
       </Routes>
     </div>
   );
