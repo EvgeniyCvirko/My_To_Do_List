@@ -59,6 +59,8 @@
     justify-content: space-between;
     color: #212121;
     margin: 15px 0;
+    border: 1px solid #7eb6c1;
+    cursor: grab;
 }
 
 .task input {

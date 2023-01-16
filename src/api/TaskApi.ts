@@ -15,5 +15,7 @@ export const TaskApi = {
   deleteTask(todolistId: string, taskId: string) {
     return instance.delete<ResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}`)
   },
+  reorderTask(todolistId: string, taskId: string, putAfterItemId: string) {
+    return instance.put<ResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}/reorder`, {putAfterItemId})
+  },
 }
-

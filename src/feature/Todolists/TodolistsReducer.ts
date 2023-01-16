@@ -36,7 +36,7 @@ export const changeTodolistTitle = createAsyncThunk<{todolistId: string, title: 
     }
   }
 )
-export const changeOrderTodolist = createAsyncThunk<{todolistId: string, order: number}, {todolistId: string, putAfterItemId: string}, ThunkError>(
+export const changeOrderTodolist = createAsyncThunk<undefined, {todolistId: string, putAfterItemId: string}, ThunkError>(
   'todolists/reorder', async (param, thunkApi) => {
     thunkApi.dispatch(appSetStatus({status: 'loading'}))
     try {

@@ -90,6 +90,23 @@ export const deleteTask = createAsyncThunk<{ todolistId: string, taskId: string 
   }
 )
 
+export const changeOrderTask = createAsyncThunk<undefined, {todolistId: string,taskId: string, putAfterItemId: string}, ThunkError>(
+  'tasks/reorder', async (param, thunkApi) => {
+    thunkApi.dispatch(appSetStatus({status: 'loading'}))
+    try {
+      const res = await TaskApi.reorderTask(param.todolistId,param.taskId, param.putAfterItemId)
+      if (res.data.resultCode === 0) {
+        thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
+        thunkApi.dispatch(getTasks(param.todolistId))
+      } else {
+        return asyncServerAppError(thunkApi, res.data)
+      }
+    } catch (error: any) {
+      return asyncServerNetworkError(thunkApi, error)
+    }
+  }
+)
+
 type initialStateType = {
   [key: string]: TaskType[]
 }
