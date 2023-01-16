@@ -4,7 +4,6 @@ import {TodolistApi} from '../../api/TodolistApi';
 import { appSetStatus} from '../../app/AppReducer';
 import {ThunkError} from '../../api/Types';
 import {asyncServerAppError, asyncServerNetworkError} from '../../utils/error--utils';
-import {log} from 'util';
 
 
 //thunk
@@ -14,7 +13,6 @@ export const getTodolists = createAsyncThunk<{ todolists: TodolistType[] }, unde
     try {
       const res = await TodolistApi.getTodolists()
       thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
-      console.log(res.data)
       return {todolists: res.data}
     } catch (error: any) {
       return asyncServerNetworkError(thunkApi, error)
@@ -38,14 +36,14 @@ export const changeTodolistTitle = createAsyncThunk<{todolistId: string, title: 
     }
   }
 )
-export const changeOrderTodolist = createAsyncThunk<{todolistId: string, order: number}, {todolistId: string, order: number}, ThunkError>(
+export const changeOrderTodolist = createAsyncThunk<{todolistId: string, order: number}, {todolistId: string, putAfterItemId: string}, ThunkError>(
   'todolists/reorder', async (param, thunkApi) => {
     thunkApi.dispatch(appSetStatus({status: 'loading'}))
     try {
-      const res = await TodolistApi.reorderTodolists(param.todolistId, param.order)
+      const res = await TodolistApi.reorderTodolists(param.todolistId, param.putAfterItemId)
       if (res.data.resultCode === 0) {
         thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
-        //return {todolistId: param.todolistId, title: param.order}
+        thunkApi.dispatch(getTodolists())
       } else {
         return asyncServerAppError(thunkApi, res.data)
       }
@@ -88,7 +86,6 @@ export const createTodolist = createAsyncThunk<{todolist:TodolistServerType }, s
   }
 )
 
-
 //state
 export const slice = createSlice({
   name: 'todolists',
@@ -97,7 +94,6 @@ export const slice = createSlice({
     changeFilter(state, action: PayloadAction<{ todolistId: string, filter: FilterType }>) {
       const index = state.findIndex(td => td.id === action.payload.todolistId)
       state[index].filter = action.payload.filter
-
     },
     changeOrderTodolists(state, action: PayloadAction<{ todolists: TodolistServerType[] }>) {
       return state = action.payload.todolists

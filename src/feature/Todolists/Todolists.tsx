@@ -5,8 +5,6 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../utils/hooks';
 import {
   changeOrderTodolist,
-  changeOrderTodolists,
-  changeTodolistTitle,
   createTodolist,
   getTodolists
 } from './TodolistsReducer';
@@ -19,7 +17,6 @@ export const Todolists = () => {
   const todolists = useAppSelector(state => state.todolists)
   const isLogin = useAppSelector(state => state.login.isLogin)
 
-  //const [newTodolists, setNewTodolists] = useState<TodolistServerType[]>(useAppSelector(state => state.todolists))
   const [currentTodolist, setCurrentTodolist] = useState<TodolistServerType>(todolists[0])
   const addTodolist = useCallback(async (title: string, helper: AddItemFormSubmitHelperType) => {
     const resultAction = await dispatch(createTodolist(title))
@@ -47,26 +44,15 @@ export const Todolists = () => {
   }
   const onDropHandler = (event: React.DragEvent<HTMLDivElement>, todolist: TodolistServerType) => {
     event.preventDefault()
-    dispatch(changeOrderTodolists({
-      todolists: todolists.map(t => {
-        if (t.order === todolist.order) {
-          return {...t, order: currentTodolist.order}
-        }
-        if (t.order === currentTodolist.order) {
-          return {...t, order: todolist.order}
-        }
-        return t
-      })
-    }))
-    /*if (todolist.id === currentTodolist?.id) {
-      //dispatch(changeTodolistTitle({todolistId:todolist.id, title:todolist.title , order: currentTodolist.order}))
-      //dispatch(changeOrderTodolist({todolistId:todolist.id,order:currentTodolist.order}))
-      return
-      }
-      */
+    dispatch(changeOrderTodolist({todolistId:currentTodolist.id, putAfterItemId:todolist.id}))
     event.currentTarget.style.backgroundColor = '#00897b'
   }
-  console.log(todolists)
+  useEffect(() => {
+    if (!isLogin) {
+      return
+    }
+    dispatch(getTodolists())
+  }, [])
   const todolistRender = [...todolists].sort((a:TodolistServerType,b:TodolistServerType) => a.order - b.order).map((td) => {
       return <div key={td.id}>
         <div onDragStart={(e) => dragStartHandler(e, td)}
@@ -80,12 +66,6 @@ export const Todolists = () => {
       </div>
     }
   )
-  useEffect(() => {
-    if (!isLogin) {
-      return
-    }
-    dispatch(getTodolists())
-  }, [])
 
   if (!isLogin) {
     return <Navigate to={'/login'}/>
@@ -99,6 +79,5 @@ export const Todolists = () => {
         {todolistRender}
       </div>
     </div>
-
   )
 }
