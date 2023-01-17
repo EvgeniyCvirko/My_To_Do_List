@@ -60,6 +60,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     color: #212121;
     margin: 10px 0;
     border: 2px solid lightpink;
@@ -69,6 +70,8 @@
 }
 
 .task input {
+
+    height: 15px;
     flex-basis: 10%;
 }
 
@@ -84,13 +87,19 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     color: #212121;
-    margin: 15px 0;
+    margin: 10px 0;
+    border: 2px solid lightpink;
+    border-radius: 6px;
+    cursor: grab;
+    background-color: #fafcf9;
     opacity: 0.5;
 }
 
 .taskCompleated input {
     flex-basis: 10%;
+    height: 15px;
 }
 
 .taskCompleated div {

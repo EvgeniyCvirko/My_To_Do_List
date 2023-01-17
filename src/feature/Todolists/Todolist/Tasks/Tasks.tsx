@@ -33,19 +33,33 @@ export const Tasks = React.memo((props: TasksPropsType) => {
   }, [])
 
   const dragStartHandler = (event: React.DragEvent<HTMLDivElement>, task: TaskType) => {
+    console.log('task =' + 'dragStartHandler')
+    event.stopPropagation()
     setCurrentTask(task)
   }
+  const dragLeaveHandler = (event: React.DragEvent<HTMLDivElement>) => {
+    console.log('task =' + 'dragLeaveHandler')
+    event.currentTarget.style.boxShadow = 'none'
+    event.stopPropagation()
+    //setCurrentTask(task)
+  }
   const dragEndHandler = (event: React.DragEvent<HTMLDivElement>) => {
-    event.currentTarget.style.backgroundColor = '#00897b'
+    console.log('task =' + 'dragEndHandler')
+    event.currentTarget.style.boxShadow = 'none'
+    event.stopPropagation()
   }
   const dragOverHandler = (event: React.DragEvent<HTMLDivElement>) => {
+    console.log('task =' + 'dragOverHandler')
+    event.stopPropagation()
     event.preventDefault()
-    event.currentTarget.style.backgroundColor = 'lightgray'
+    event.currentTarget.style.boxShadow = '0 10px 10px gray'
   }
   const onDropHandler = (event: React.DragEvent<HTMLDivElement>, task: TaskType) => {
+    console.log('task =' + 'onDropHandler')
+    event.stopPropagation()
     event.preventDefault()
     dispatch(changeOrderTask({todolistId: task.todoListId, taskId: currentTask.id, putAfterItemId: task.id}))
-    event.currentTarget.style.backgroundColor = '#00897b'
+    event.currentTarget.style.boxShadow = 'none'
   }
 
   let taskForRender = tasks
@@ -59,17 +73,18 @@ export const Tasks = React.memo((props: TasksPropsType) => {
 
   const task = taskForRender.length ?
     taskForRender.map((t, i) => {
-      return <div onDragStart={(e) => dragStartHandler(e, t)}
-                  onDragLeave={(e) => dragEndHandler(e)}
+      return <div key={i}
+                  onDragStart={(e) => dragStartHandler(e, t)}
+                  onDragLeave={(e) => dragLeaveHandler(e)}
                   onDragEnd={(e) => dragEndHandler(e)}
                   onDragOver={(e) => dragOverHandler(e)}
                   onDrop={(e) => onDropHandler(e, t)}
                   draggable={true}>
-        <Task key={i}
-              taskTitle={t.title}
-              todolistId={t.todoListId}
-              taskId={t.id}
-              status={t.status}/>
+        <Task
+          taskTitle={t.title}
+          todolistId={t.todoListId}
+          taskId={t.id}
+          status={t.status}/>
       </div>
     })
     : <span>{'Нет в списке задач'}</span>
