@@ -35,7 +35,7 @@ export const Todolists = () => {
     setCurrentTodolist(todolist)
   }
   const dragEndHandler = (event: React.DragEvent<HTMLDivElement>) => {
-    event.currentTarget.style.backgroundColor = '#00897b'
+    event.currentTarget.style.backgroundColor = '#e5e5e5'
 
   }
   const dragOverHandler = (event: React.DragEvent<HTMLDivElement>) => {
@@ -45,7 +45,7 @@ export const Todolists = () => {
   const onDropHandler = (event: React.DragEvent<HTMLDivElement>, todolist: TodolistServerType) => {
     event.preventDefault()
     dispatch(changeOrderTodolist({todolistId:currentTodolist.id, putAfterItemId:todolist.id}))
-    event.currentTarget.style.backgroundColor = '#00897b'
+    event.currentTarget.style.backgroundColor = '#e5e5e5'
   }
   useEffect(() => {
     if (!isLogin) {
