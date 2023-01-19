@@ -4,6 +4,7 @@ import {TodolistApi} from '../../api/TodolistApi';
 import { appSetStatus} from '../../app/AppReducer';
 import {ThunkError} from '../../api/Types';
 import {asyncServerAppError, asyncServerNetworkError} from '../../utils/error--utils';
+import {getTasks} from './Todolist/Tasks/TasksReducer';
 
 
 //thunk
@@ -13,6 +14,9 @@ export const getTodolists = createAsyncThunk<{ todolists: TodolistType[] }, unde
     try {
       const res = await TodolistApi.getTodolists()
       thunkApi.dispatch(appSetStatus({status: 'succeeded'}))
+      res.data.forEach(td => {
+        thunkApi.dispatch(getTasks(td.id))
+      })
       return {todolists: res.data}
     } catch (error: any) {
       return asyncServerNetworkError(thunkApi, error)

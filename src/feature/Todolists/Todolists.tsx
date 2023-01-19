@@ -52,7 +52,7 @@ export const Todolists = () => {
       return
     }
     dispatch(getTodolists())
-  }, [])
+  }, [isLogin, todolists.length])
   const todolistRender = [...todolists].sort((a:TodolistServerType,b:TodolistServerType) => a.order - b.order).map((td) => {
       return <div key={td.id}>
         <div onDragStart={(e) => dragStartHandler(e, td)}

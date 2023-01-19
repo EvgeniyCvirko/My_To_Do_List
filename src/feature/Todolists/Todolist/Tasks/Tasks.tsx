@@ -1,7 +1,7 @@
 import {Task} from './Task/Task';
 import {useAppDispatch, useAppSelector} from '../../../../utils/hooks';
-import React, {useCallback, useEffect, useState} from 'react';
-import {addTasks, changeOrderTask, getTasks} from './TasksReducer';
+import React, {useCallback, useState} from 'react';
+import {addTasks, changeOrderTask} from './TasksReducer';
 import {AddItemForm, AddItemFormSubmitHelperType} from '../../../../components/AddItemForm';
 import s from './../../Style/Todolists.module.css'
 import {FilterType, TaskStatues, TaskType} from '../../../../types/CommonTypes';
@@ -14,9 +14,6 @@ export const Tasks = React.memo((props: TasksPropsType) => {
   const tasks = useAppSelector(state => state.tasks[props.todolistId])
   const dispatch = useAppDispatch()
   const [currentTask, setCurrentTask] = useState<TaskType>(tasks[0])
-  useEffect(() => {
-    dispatch(getTasks(props.todolistId))
-  }, [])
 
   const addTask = useCallback(async (title: string, helper: AddItemFormSubmitHelperType) => {
     const resultAction = await dispatch(addTasks({todolistId: props.todolistId, title}))
@@ -33,23 +30,19 @@ export const Tasks = React.memo((props: TasksPropsType) => {
   }, [])
 
   const dragStartHandler = (event: React.DragEvent<HTMLDivElement>, task: TaskType) => {
-    console.log('task =' + 'dragStartHandler')
     event.stopPropagation()
     setCurrentTask(task)
   }
   const dragLeaveHandler = (event: React.DragEvent<HTMLDivElement>) => {
-    console.log('task =' + 'dragLeaveHandler')
     event.currentTarget.style.boxShadow = 'none'
     event.stopPropagation()
     //setCurrentTask(task)
   }
   const dragEndHandler = (event: React.DragEvent<HTMLDivElement>) => {
-    console.log('task =' + 'dragEndHandler')
     event.currentTarget.style.boxShadow = 'none'
     event.stopPropagation()
   }
   const dragOverHandler = (event: React.DragEvent<HTMLDivElement>) => {
-    console.log('task =' + 'dragOverHandler')
     event.stopPropagation()
     event.preventDefault()
     event.currentTarget.style.boxShadow = '0 10px 10px gray'
