@@ -61,3 +61,12 @@ label,span {
     box-shadow: inset 0 1px 0 #48cbfb;
     background:linear-gradient(to bottom, #28c5ff 0%, #009dd7 100%) ;
 }
+
+/*preview*/
+.preview{
+    color: black;
+    font-size: 18px;
+    text-align: justify;
+    margin: 10px auto;
+    line-height: 1.5em;
+}
